@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#151618">
+  <meta name="description" content="ШТАБ. Кликабельный прототип дневника силовых тренировок с анкетой, планом и журналом подходов.">
+  <title>ШТАБ — дневник силовых тренировок</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/mark.svg">
+  <link rel="stylesheet" href="./css/style.css">
+  <script defer src="./js/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">К содержанию</a>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a href="#today" class="logo" aria-label="ШТАБ, сегодня">
+        <img src="./assets/mark.svg" width="30" height="30" alt="">ШТАБ.
+      </a>
+      <nav class="nav" aria-label="Разделы">
+        <a href="#today" data-nav="today" aria-current="page">Сегодня</a>
+        <a href="#progress" data-nav="progress">Прогресс</a>
+        <a href="#profile" data-nav="profile">Профиль</a>
+      </nav>
+      <span id="mode" class="mode"><i aria-hidden="true"></i>Прототип</span>
+    </div>
+  </header>
+  <main id="main" class="shell" tabindex="-1">
+    <section id="view-today" aria-labelledby="today-heading">
+      <div class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">Дневник силовых тренировок</p>
+          <h1 id="today-heading">У каждой<br>тренировки <span>есть план.</span></h1>
+          <p class="hero-description">Запиши подходы, сохрани результаты и учитывай их перед следующим занятием.</p>
+          <a href="#profile" id="hero-action" class="button primary">Настроить профиль</a>
+        </div>
+        <div class="hero-media">
+          <img src="./assets/shtab-gym.webp" width="1440" height="960" fetchpriority="high" alt="Штанга на помосте в тренировочном зале">
+        </div>
+      </div>
+      <div id="today-content"></div>
+      <section id="team" class="section team" aria-labelledby="team-heading">
+        <div class="section-head">
+          <h2 id="team-heading">Твоя команда</h2>
+          <p class="muted">Один дневник для всех трёх ролей.</p>
+        </div>
+        <div id="agent-grid" class="agent-grid"></div>
+      </section>
+    </section>
+    <section id="view-profile" class="view-space" aria-labelledby="profile-heading" hidden>
+      <div class="view-heading">
+        <p class="eyebrow">Перед первым занятием</p>
+        <h1 id="profile-heading">Профиль</h1>
+        <p>Расскажи о себе и условиях тренировки. Настройки можно изменить в любой момент.</p>
+      </div>
+      <div class="profile-layout">
+        <form id="profile-form" class="panel profile">
+          <fieldset>
+            <legend>О себе</legend>
+            <div class="field-grid">
+              <label>Возраст, лет<input name="age" type="number" min="18" max="100" required inputmode="numeric" placeholder="25"></label>
+              <label>Рост, см<input name="height" type="number" min="100" max="240" required inputmode="numeric" placeholder="180"></label>
+              <label>Вес, кг<input name="weight" type="number" min="30" max="350" step="0.1" required inputmode="decimal" placeholder="78"></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Как тренируешься</legend>
+            <div class="field-grid">
+              <label>Опыт
+                <select name="experience" required>
+                  <option value="beginner">Начинаю</option>
+                  <option value="regular">Занимаюсь регулярно</option>
+                  <option value="advanced">Несколько лет в зале</option>
+                </select>
+              </label>
+              <label>Цель
+                <select name="goal" required>
+                  <option value="fitness">Поддерживать форму</option>
+                  <option value="strength">Стать сильнее</option>
+                  <option value="muscle">Набрать мышечную массу</option>
+                </select>
+              </label>
+              <label>Занятий в неделю
+                <select name="days" required>
+                  <option value="2">2 занятия</option>
+                  <option value="3">3 занятия</option>
+                  <option value="4">4 занятия</option>
+                </select>
+              </label>
+              <label>Время на занятие
+                <select name="minutes" required>
+                  <option value="20">20 минут</option>
+                  <option value="30">30 минут</option>
+                  <option value="45">45 минут</option>
+                  <option value="60">60 минут</option>
+                </select>
+              </label>
+              <label>Оборудование
+                <select name="equipment" required>
+                  <option value="dumbbells">Гантели</option>
+                  <option value="gym">Тренажёрный зал</option>
+                  <option value="bodyweight">Собственный вес</option>
+                </select>
+              </label>
+            </div>
+          </fieldset>
+          <div class="form-actions">
+            <button type="submit" class="button primary">Сохранить и открыть план</button>
+            <button type="button" id="demo-profile" class="button secondary">Заполнить примером</button>
+          </div>
+        </form>
+        <aside class="panel profile-note">
+          <p class="eyebrow">Из анкеты в план</p>
+          <h2>Как меняется план</h2>
+          <p class="muted">В этом примере на подбор упражнений влияют время занятия и оборудование. Их можно изменить перед тренировкой.</p>
+        </aside>
+      </div>
+    </section>
+    <section id="view-workout" class="view-space" aria-labelledby="workout-heading" hidden>
+      <div class="view-heading">
+        <p class="eyebrow">Напарник</p>
+        <h1 id="workout-heading">Тренировка</h1>
+        <p id="workout-subtitle"></p>
+      </div>
+      <div id="workout-content"></div>
+    </section>
+    <section id="view-progress" class="view-space" aria-labelledby="progress-heading" hidden>
+      <div class="view-heading">
+        <p class="eyebrow">Аналитик / журнал</p>
+        <h1 id="progress-heading">Прогресс</h1>
+        <p>Статистика по сохранённым тренировкам.</p>
+      </div>
+      <div id="progress-content"></div>
+    </section>
+    <noscript><p class="panel">Для переходов и записи подходов включи JavaScript.</p></noscript>
+  </main>
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <a href="#today" class="logo footer-logo">ШТАБ.</a>
+      <p>Кликабельный прототип дневника силовых тренировок</p>
+    </div>
+  </footer>
+  <dialog id="dialog" aria-labelledby="dialog-title"></dialog>
+  <p id="status" class="sr-only" role="status"></p>
+</body>
+</html>
